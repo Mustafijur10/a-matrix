@@ -49,7 +49,7 @@ export default function WhyUs() {
             solutions, and ensuring impactful digital transformation for
             long-term business success.
           </p>
-          <Button href="/contact" className="mt-8 h-12 rounded-xl px-6 text-[15px]">
+          <Button href="/#contact" className="mt-8 h-12 rounded-xl px-6 text-[15px]">
             Schedule a Call
           </Button>
         </div>

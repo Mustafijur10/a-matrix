@@ -1,72 +1,23 @@
 import Link from "next/link";
 import type { ComponentProps } from "react";
 
-/**
- * Button system — matches the Figma "Button Style" sheet (top → bottom):
- *  primary       teal radial-glow gradient, white text   (default CTA)
- *  white         white fill, dark text                    (on dark / teal sections)
- *  outline       teal border + teal text                  (secondary on light)
- *  outline-light white border + white text                (secondary on dark)
- *  outline-dark  navy border + navy text                  (neutral secondary on light)
- *
- * Use <Button href="..."> for links, or `buttonStyles()` on a native <button>
- * (e.g. form submit) so every button on the site shares one look.
- */
-export type ButtonVariant =
-  | "primary"
-  | "white"
-  | "outline"
-  | "outline-light"
-  | "outline-dark";
-export type ButtonSize = "md" | "lg";
-
-const base =
-  "inline-flex items-center justify-center rounded-[14px] font-normal whitespace-nowrap select-none transition duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 disabled:pointer-events-none disabled:opacity-60";
-
-const variants: Record<ButtonVariant, string> = {
-  primary:
-    "text-white bg-[radial-gradient(ellipse_70%_130%_at_50%_100%,#7bc9a7_0%,#3b9685_42%,#25786d_85%)] hover:brightness-110 active:brightness-95 focus-visible:outline-brand-500",
-  white:
-    "bg-white text-text-primary hover:bg-green-1 focus-visible:outline-white",
-  outline:
-    "border border-brand-600 text-brand-600 hover:bg-green-1 focus-visible:outline-brand-500",
-  "outline-light":
-    "border border-white/40 text-white hover:bg-white/10 focus-visible:outline-white",
-  "outline-dark":
-    "border border-text-primary text-text-primary hover:bg-text-primary hover:text-white focus-visible:outline-text-primary",
-};
-
-const sizes: Record<ButtonSize, string> = {
-  md: "h-12 px-6 text-base",
-  lg: "h-12 px-6 text-lg",
-};
-
-export function buttonStyles({
-  variant = "primary",
-  size = "md",
-  className = "",
-}: {
-  variant?: ButtonVariant;
-  size?: ButtonSize;
-  className?: string;
-} = {}) {
-  return `${base} ${variants[variant]} ${sizes[size]} ${className}`.trim();
-}
-
-type Props = ComponentProps<typeof Link> & {
-  variant?: ButtonVariant;
-  size?: ButtonSize;
-};
+type Props = ComponentProps<typeof Link> & { size?: "md" | "lg" };
 
 export default function Button({
-  variant = "primary",
   size = "md",
   className = "",
   children,
   ...props
 }: Props) {
+  const sizes = {
+    md: "h-12 px-6 text-base",
+    lg: "h-12 px-6 text-lg md:h-[48px] md:px-6",
+  };
   return (
-    <Link {...props} className={buttonStyles({ variant, size, className })}>
+    <Link
+      {...props}
+      className={`inline-flex items-center justify-center rounded-2xl bg-gradient-to-b from-brand-500 to-brand-600 font-normal text-white shadow-[0_8px_24px_-6px_rgba(63,165,149,0.55)] ring-1 ring-white/10 transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400 ${sizes[size]} ${className}`}
+    >
       {children}
     </Link>
   );

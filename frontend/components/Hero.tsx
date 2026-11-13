@@ -38,7 +38,7 @@ export default function Hero() {
           less manual overhead.
         </p>
 
-        <Button href="/contact" size="lg" className="mt-9">
+        <Button href="/#contact" size="lg" className="mt-9">
           Schedule a Call
         </Button>
       </div>

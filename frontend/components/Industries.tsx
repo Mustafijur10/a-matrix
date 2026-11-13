@@ -102,7 +102,7 @@ export default function Industries() {
                 </li>
               ))}
             </ul>
-            <Button href="/contact" className="mt-6 h-12 rounded-xl px-6 text-[15px]">
+            <Button href="/#contact" className="mt-6 h-12 rounded-xl px-6 text-[15px]">
               Get a Free Consultation
             </Button>
           </div>

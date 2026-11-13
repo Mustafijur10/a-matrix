@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import SectionBadge from "./SectionBadge";
+import SectionBadge from "@/components/shared/SectionBadge";
 import JobCard from "./JobCard";
 import { departments, type Job } from "@/lib/jobs";
 
@@ -22,7 +22,7 @@ export default function Vacancies({ jobs }: { jobs: Job[] }) {
       {/* Export the faint "A" brand mark from Figma as SVG/PNG */}
       <div className="pointer-events-none absolute inset-0 bg-[url('/images/careers/vacancies-bg.svg')] bg-cover bg-center opacity-80" aria-hidden />
 
-      <div className="relative mx-auto max-w-5xl">
+      <div className="relative mx-auto max-w-[1200px]">
         <div className="flex flex-col items-center text-center">
           <SectionBadge>Job</SectionBadge>
           <h2 className="mt-4 text-3xl font-medium text-[#0F1A2B] sm:text-5xl">Current Vacancies</h2>

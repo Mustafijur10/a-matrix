@@ -1,4 +1,4 @@
-import Icon from "./Icon";
+import Icon from "@/components/shared/Icon";
 import { benefitChips, benefitGroups } from "@/lib/jobs";
 
 const chipIcons: Record<string, string> = {

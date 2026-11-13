@@ -22,7 +22,7 @@ const socials = [
 ];
 
 function ColHeading({ children }: { children: React.ReactNode }) {
-  return <h3 className="text-t1 text-white">{children}</h3>;
+  return <h3 className="text-[22px] font-normal leading-7 text-white">{children}</h3>;
 }
 
 function LinkList({ items }: { items: { label: string; href: string }[] }) {

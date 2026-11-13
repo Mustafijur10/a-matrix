@@ -7,6 +7,7 @@ import Industries from "@/components/Industries";
 import Approach from "@/components/Approach";
 import Insights from "@/components/Insights";
 import Contact from "@/components/Contact";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
       <Approach />
       <Insights />
       <Contact />
+      <Footer />
     </main>
   );
 }

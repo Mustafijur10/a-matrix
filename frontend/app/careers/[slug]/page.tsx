@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import PageHero from "@/components/careers/PageHero";
+import PageHero from "@/components/shared/PageHero";
 import Benefits from "@/components/careers/Benefits";
 import JobSummaryCard from "@/components/careers/JobSummaryCard";
-import CopyShare from "@/components/careers/CopyShare";
+import CopyShare from "@/components/shared/CopyShare";
 import JobCard from "@/components/careers/JobCard";
 import { getJobBySlug, getJobs } from "@/lib/jobs";
-import CareersFooter from "@/components/careers/CareersFooter";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -27,16 +26,15 @@ export default async function JobDetailsPage({ params }: Params) {
   const more = (await getJobs()).filter((j) => j.slug !== slug).slice(0, 2);
 
   return (
-    <main className="mx-auto w-full max-w-[1440px] overflow-x-clip">
+    <main>
       <PageHero
         breadcrumb={[{ label: "Home", href: "/" }, { label: "Careers", href: "/careers" }, { label: "Career Details" }]}
         title="Job Details"
         subtitle="A fast-paced, future-focused team working at the intersection of technology, innovation, and real-world impact."
       />
-      
 
       <section className="bg-white px-5 py-14 sm:py-20">
-        <div className="mx-auto grid max-w-5xl gap-10 lg:grid-cols-[1.45fr_1fr]">
+        <div className="mx-auto grid max-w-[1200px] gap-10 lg:grid-cols-[1.45fr_1fr]">
           <article className="space-y-12">
             <div>
               <h2 className="text-2xl font-medium text-[#0F1A2B]">About the role</h2>
@@ -56,7 +54,7 @@ export default async function JobDetailsPage({ params }: Params) {
 
       {more.length > 0 && (
         <section className="bg-[#F3F3F3] px-5 py-16 sm:py-20">
-          <div className="mx-auto max-w-5xl">
+          <div className="mx-auto max-w-[1200px]">
             <div className="flex flex-col items-center text-center">
               <span className="rounded-full border border-[#7FD6C2] bg-white px-3.5 py-1 text-xs text-[#0E9F84]">Openings</span>
               <h2 className="mt-4 text-3xl font-medium text-[#0F1A2B] sm:text-5xl">Explore More Jobs</h2>

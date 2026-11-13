@@ -24,7 +24,7 @@ export default function Approach() {
             Every engagement follows the same four stages, so you always know
             what&apos;s happening and why.
           </p>
-          <Button href="/contact" className="mt-8 h-12 rounded-xl px-6 text-[15px]">
+          <Button href="/#contact" className="mt-8 h-12 rounded-xl px-6 text-[15px]">
             Contact Us
           </Button>
         </div>

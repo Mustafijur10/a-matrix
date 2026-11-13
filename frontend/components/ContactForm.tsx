@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { buttonStyles } from "./Button";
 
 const services = [
   "Data Science & Consultancy",
@@ -14,175 +13,100 @@ const services = [
   "Systems Integration",
 ];
 
-type Status = "idle" | "sending" | "success" | "error";
-type Errors = Partial<Record<string, string[]>>;
-
-/**
- * variant="compact" → homepage contact section (unchanged look)
- * variant="page"    → /contact page card (Figma: tall inputs, full-width button)
- */
-type Variant = "compact" | "page";
-
-const styles = {
-  compact: {
-    form: "rounded-[28px] bg-white p-5 shadow-[0_20px_60px_-30px_rgba(11,27,46,0.25)] sm:p-4",
-    label: "mb-2 block text-sm font-medium text-ink",
-    input: "h-11 px-4 text-sm",
-    textarea: "py-3.5",
-    rows: 4,
-    gap: "gap-5",
-    footer: "mt-6 flex flex-wrap items-center gap-4",
-    button: "",
-  },
-  page: {
-    form: "rounded-[28px] bg-white p-4 shadow-[0_24px_80px_-32px_rgba(15,23,42,0.2)] sm:p-6",
-    label: "mb-2 block text-base font-medium text-text-primary",
-    input: "h-14 px-5 text-[15px] sm:h-16",
-    textarea: "min-h-[200px] py-5 sm:min-h-[240px]",
-    rows: 8,
-    gap: "gap-5 sm:gap-6",
-    footer: "mt-8 flex flex-col gap-4 sm:mt-10",
-    button: "w-full",
-  },
-} satisfies Record<Variant, Record<string, string | number>>;
+type Status = "idle" | "sending" | "sent" | "error";
 
 const field =
-  "w-full rounded-xl bg-gray text-text-primary placeholder:text-text-tertiary/70 outline-none ring-1 ring-transparent transition focus:bg-white focus:ring-brand-500";
+  "w-full rounded-xl bg-surface px-4 text-[13px] text-ink outline-none placeholder:text-ink/40 focus:ring-2 focus:ring-brand-500/50";
 
-function Field({
-  label,
-  name,
-  errors,
-  labelClass,
-  children,
-}: {
-  label: string;
-  name: string;
-  errors: Errors;
-  labelClass: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div>
-      <label htmlFor={name} className={labelClass}>
-        {label}
-      </label>
-      {children}
-      {errors[name]?.[0] && (
-        <p className="mt-1.5 text-xs text-red-600" role="alert">
-          {errors[name]![0]}
-        </p>
-      )}
-    </div>
-  );
-}
-
-export default function ContactForm({
-  variant = "compact",
-}: {
-  variant?: Variant;
-}) {
-  const s = styles[variant];
+export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
-  const [errors, setErrors] = useState<Errors>({});
-  const [message, setMessage] = useState("");
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     setStatus("sending");
-    setErrors({});
-    setMessage("");
-
     try {
+      // TODO: confirm the real endpoint and payload with your backend
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contact`, {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(Object.fromEntries(new FormData(form))),
       });
-
-      if (res.status === 422) {
-        const data = await res.json();
-        setErrors(data.errors ?? {});
-        setStatus("error");
-        return;
-      }
       if (!res.ok) throw new Error("Request failed");
-
       form.reset();
-      setStatus("success");
-      setMessage("Thanks! We'll get back to you within one business day.");
+      setStatus("sent");
     } catch {
       setStatus("error");
-      setMessage("Something went wrong. Please try again or email us directly.");
     }
   }
 
   return (
-    <form onSubmit={onSubmit} noValidate className={s.form}>
-      <div className={`grid ${s.gap}`}>
-        <div className={`grid gap-5 sm:grid-cols-2 ${variant === "page" ? "sm:gap-4" : "sm:gap-3"}`}>
-          <Field label="First Name" name="first_name" errors={errors} labelClass={s.label}>
-            <input id="first_name" name="first_name" required autoComplete="given-name" placeholder="Enter your first name" className={`${field} ${s.input}`} />
-          </Field>
-          <Field label="Last Name" name="last_name" errors={errors} labelClass={s.label}>
-            <input id="last_name" name="last_name" required autoComplete="family-name" placeholder="Enter your last name" className={`${field} ${s.input}`} />
-          </Field>
-        </div>
-
-        <Field label="Email" name="email" errors={errors} labelClass={s.label}>
-          <input id="email" name="email" type="email" required autoComplete="email" placeholder="Enter your email" className={`${field} ${s.input}`} />
-        </Field>
-
-        <Field label="Phone number" name="phone" errors={errors} labelClass={s.label}>
-          <input id="phone" name="phone" type="tel" autoComplete="tel" placeholder="+880 1XXX XXXXXX" className={`${field} ${s.input}`} />
-        </Field>
-
-        <Field label="Service you're interested in" name="service" errors={errors} labelClass={s.label}>
-          <div className="relative">
-            <select
-              id="service"
-              name="service"
-              required
-              defaultValue=""
-              className={`${field} ${s.input} appearance-none pr-12 invalid:text-text-tertiary/70`}
-            >
-              <option value="" disabled>
-                Select your Service
-              </option>
-              {services.map((x) => (
-                <option key={x} value={x}>
-                  {x}
-                </option>
-              ))}
-            </select>
-            <svg className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-text-primary" width="14" height="14" viewBox="0 0 12 12" fill="none" aria-hidden>
-              <path d="M2.5 4.5 6 8l3.5-3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </div>
-        </Field>
-
-        <Field label="What are you trying to solve?" name="message" errors={errors} labelClass={s.label}>
-          <textarea id="message" name="message" required rows={s.rows} placeholder="Leave a message..." className={`${field} resize-none px-5 text-[15px] ${s.textarea}`} />
-        </Field>
+    <form
+      onSubmit={onSubmit}
+      className="rounded-[28px] bg-white p-5 sm:p-6"
+    >
+      <div className="grid gap-5 sm:grid-cols-2 sm:gap-4">
+        <label className="block">
+          <span className="text-sm text-ink">First Name</span>
+          <input name="firstName" required placeholder="Enter your first name" className={`${field} mt-2 h-[54px]`} />
+        </label>
+        <label className="block">
+          <span className="text-sm text-ink">Last Name</span>
+          <input name="lastName" placeholder="Enter your last name" className={`${field} mt-2 h-[54px]`} />
+        </label>
       </div>
 
-      <div className={s.footer}>
+      <label className="mt-5 block">
+        <span className="text-sm text-ink">Email</span>
+        <input name="email" type="email" required placeholder="Enter your email" className={`${field} mt-2 h-[54px]`} />
+      </label>
+
+      <label className="mt-5 block">
+        <span className="text-sm text-ink">Phone number</span>
+        <input name="phone" type="tel" placeholder="+1 (565) *******" className={`${field} mt-2 h-[54px]`} />
+      </label>
+
+      <label className="mt-5 block">
+        <span className="text-sm text-ink">Service you&apos;re interested in</span>
+        <span className="relative mt-2 block">
+          <select
+            name="service"
+            defaultValue=""
+            className={`${field} h-[54px] appearance-none pr-10 invalid:text-ink/40`}
+            required
+          >
+            <option value="" disabled>
+              Select your Service
+            </option>
+            {services.map((s) => (
+              <option key={s} value={s}>
+                {s}
+              </option>
+            ))}
+          </select>
+          <svg className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-ink" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+            <path d="m3.5 6 4.5 4.5L12.5 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+      </label>
+
+      <label className="mt-5 block">
+        <span className="text-sm text-ink">What are you trying to solve?</span>
+        <textarea name="message" required rows={4} placeholder="Leave a message..." className={`${field} mt-2 min-h-[120px] resize-none py-4`} />
+      </label>
+
+      <div className="mt-6 flex flex-wrap items-center gap-4">
         <button
           type="submit"
           disabled={status === "sending"}
-          className={buttonStyles({ variant: "primary", size: "md", className: s.button })}
+          className="inline-flex h-12 items-center justify-center rounded-xl bg-gradient-to-b from-brand-500 to-brand-600 px-6 text-[15px] text-white shadow-[0_8px_24px_-6px_rgba(63,165,149,0.55)] transition hover:brightness-110 disabled:opacity-60"
         >
           {status === "sending" ? "Sending…" : "Send message"}
         </button>
-        {message && (
-          <p
-            role="status"
-            className={`text-sm ${variant === "page" ? "text-center" : ""} ${status === "success" ? "text-brand-600" : "text-red-600"}`}
-          >
-            {message}
-          </p>
-        )}
+        <p role="status" className="text-sm">
+          {status === "sent" && <span className="text-brand-600">Thanks, we&apos;ll be in touch soon.</span>}
+          {status === "error" && <span className="text-red-600">Something went wrong. Please try again.</span>}
+        </p>
       </div>
     </form>
   );

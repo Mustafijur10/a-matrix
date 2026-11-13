@@ -1,5 +1,5 @@
 import Image from "next/image";
-import SectionBadge from "./SectionBadge";
+import SectionBadge from "@/components/shared/SectionBadge";
 
 // Export each icon from Figma as SVG into /public/images/careers/icons/
 const points = [
@@ -14,7 +14,7 @@ const points = [
 export default function WhyJoin() {
   return (
     <section className="bg-white px-5 py-16 sm:py-24">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-[1200px]">
         <div className="mx-auto flex max-w-xl flex-col items-center text-center">
           <SectionBadge>Why join us</SectionBadge>
           <h2 className="mt-4 text-3xl font-medium text-[#0F1A2B] sm:text-5xl">Why Join AutoMatrix</h2>

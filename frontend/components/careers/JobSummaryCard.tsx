@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Icon from "./Icon";
+import Icon from "@/components/shared/Icon";
 import type { Job } from "@/lib/jobs";
 
 export default function JobSummaryCard({ job, applyHref }: { job: Job; applyHref: string }) {

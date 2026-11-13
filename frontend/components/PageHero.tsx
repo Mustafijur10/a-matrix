@@ -8,7 +8,7 @@ export default function PageHero({
   subtitle,
   crumbs,
 }: {
-  title: string;
+  title: React.ReactNode;
   subtitle?: string;
   crumbs: Crumb[];
 }) {

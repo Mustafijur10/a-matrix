@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import PageHero from "@/components/shared/PageHero";
+import Footer from "@/components/Footer";
 import SectionBadge from "@/components/shared/SectionBadge";
 import CtaBanner from "@/components/shared/CtaBanner";
 import CopyShare from "@/components/shared/CopyShare";
@@ -76,6 +77,7 @@ export default async function InsightDetailPage({ params }: Params) {
       </section>
 
       <CtaBanner tone="gray" title="Let's Modernize The Next Part Of Your Business." text="Tell us what's slowing your operations down — we'll tell you honestly how we can help." label="Get a Free Consultation" href="/contact" />
+      <Footer />
     </main>
   );
 }

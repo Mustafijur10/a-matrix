@@ -3,12 +3,12 @@ import Link from "next/link";
 
 const explore = [
   { label: "About Us", href: "/about" },
-  { label: "Meet the Team", href: "/about/team" },
+  { label: "Meet the Team", href: "/team" },
   { label: "Insights", href: "/insights" },
   { label: "Careers", href: "/careers" },
 ];
 const experience = [
-  { label: "Services", href: "/solutions" },
+  { label: "Services", href: "/services" },
   { label: "Products", href: "/products" },
   { label: "Industries", href: "/industries" },
 ];

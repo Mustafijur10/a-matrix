@@ -23,7 +23,7 @@ const techMenu: Item[] = [
 const plainLinks = [
   { label: "Insights", href: "/insights" },
   { label: "Careers", href: "/careers" },
-  { label: "Contact Us", href: "/#contact" },
+  { label: "Contact Us", href: "/contact" },
 ];
 
 type MenuKey = "about" | "tech" | null;
@@ -145,7 +145,7 @@ export default function Navbar() {
         </ul>
 
         <div className="flex items-center gap-2">
-          <Button href="/#contact" className="hidden h-12 px-6 sm:inline-flex">Schedule a Call</Button>
+          <Button href="/contact" className="hidden h-12 px-6 sm:inline-flex">Schedule a Call</Button>
           <button type="button" aria-label="Toggle menu" aria-expanded={mobile} onClick={() => setMobile((v) => !v)} className="grid size-11 place-items-center rounded-xl text-neutral-900 lg:hidden">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
               {mobile ? (
@@ -213,7 +213,7 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
-          <Button href="/#contact" className="mt-3 w-full sm:hidden">Schedule a Call</Button>
+          <Button href="/contact" className="mt-3 w-full sm:hidden">Schedule a Call</Button>
         </div>
       )}
     </header>

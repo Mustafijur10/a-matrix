@@ -4,7 +4,9 @@ import Navbar from "@/components/Navbar";
 type Crumb = { label: string; href?: string };
 
 type Props = {
-  crumbs: Crumb[];
+  crumbs?: Crumb[];
+  /** Optional pill shown above the breadcrumb */
+  badge?: React.ReactNode;
   title: React.ReactNode;
   subtitle: string;
   /** Extra bottom padding etc. (e.g. room for an overlapping product mockup) */
@@ -13,7 +15,7 @@ type Props = {
   children?: React.ReactNode;
 };
 
-export default function TechHero({ crumbs, title, subtitle, className = "pb-16 lg:min-h-[480px]", children }: Props) {
+export default function TechHero({ crumbs = [], badge, title, subtitle, className = "pb-16 lg:min-h-[480px]", children }: Props) {
   return (
     <section className={`relative isolate overflow-hidden rounded-[28px] bg-brand-950 sm:rounded-[40px] ${className}`}>
       {/* glow + grid, same treatment as the other page heroes */}
@@ -25,6 +27,8 @@ export default function TechHero({ crumbs, title, subtitle, className = "pb-16 l
       <Navbar />
 
       <div className="mx-auto flex max-w-[900px] flex-col items-center px-5 pt-14 text-center sm:pt-[70px]">
+        {badge}
+        {crumbs.length > 0 && (
         <nav aria-label="Breadcrumb">
           <ol className="flex items-center gap-2 rounded-lg bg-white/5 px-3 py-1.5 text-xs">
             {crumbs.map((c, i) => (
@@ -43,6 +47,7 @@ export default function TechHero({ crumbs, title, subtitle, className = "pb-16 l
             ))}
           </ol>
         </nav>
+        )}
 
         <h1 className="mt-5 text-4xl font-medium leading-[1.1] tracking-[-0.03em] text-white sm:text-6xl lg:text-[64px]">
           {title}

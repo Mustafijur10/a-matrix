@@ -16,7 +16,6 @@ export default function IndustriesPage() {
     <main className="mx-auto w-full max-w-[1440px] overflow-x-clip">
       <div className="p-2 sm:p-3">
         <TechHero
-          className="pb-20 lg:min-h-[350px]"
           crumbs={[
             { label: "Home", href: "/" },
             { label: "Technology & Solutions", href: "/services" },

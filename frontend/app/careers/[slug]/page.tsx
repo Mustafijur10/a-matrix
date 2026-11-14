@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import PageHero from "@/components/shared/PageHero";
+import Footer from "@/components/Footer";
 import Benefits from "@/components/careers/Benefits";
 import JobSummaryCard from "@/components/careers/JobSummaryCard";
 import CopyShare from "@/components/shared/CopyShare";
@@ -65,6 +66,7 @@ export default async function JobDetailsPage({ params }: Params) {
           </div>
         </section>
       )}
+      <Footer />
     </main>
   );
 }

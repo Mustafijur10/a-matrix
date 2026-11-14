@@ -18,7 +18,7 @@ type Status = "idle" | "sending" | "sent" | "error";
 const field =
   "w-full rounded-xl bg-surface px-4 text-[13px] text-ink outline-none placeholder:text-ink/40 focus:ring-2 focus:ring-brand-500/50";
 
-export default function ContactForm() {
+export default function ContactForm(_props: { variant?: "page" }) {
   const [status, setStatus] = useState<Status>("idle");
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {

@@ -1,6 +1,12 @@
 import Link from "next/link";
 
-export default function CtaBanner({ title, text }: { title: string; text: string }) {
+type Props = {
+  title: string;
+  text: string;
+  secondary?: { label: string; href: string };
+};
+
+export default function CtaBanner({ title, text, secondary }: Props) {
   return (
     <section className="bg-surface px-5 py-14 sm:py-16">
       <div className="relative isolate mx-auto max-w-[1200px] overflow-hidden rounded-[28px] bg-[linear-gradient(180deg,#6a9eae_0%,#68ab9f_45%,#66b392_100%)] px-6 py-16 text-center sm:py-[88px]">
@@ -11,9 +17,16 @@ export default function CtaBanner({ title, text }: { title: string; text: string
 
         <h2 className="mx-auto max-w-[520px] text-3xl font-medium leading-[1.15] text-white sm:text-[40px]">{title}</h2>
         <p className="mx-auto mt-4 max-w-[430px] text-base leading-6 text-white/90">{text}</p>
-        <Link href="/#contact" className="mt-8 inline-flex h-12 items-center rounded-xl bg-white px-6 text-[15px] text-ink transition hover:bg-white/90">
-          Get a Free Consultation
-        </Link>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <Link href="/#contact" className="inline-flex h-12 items-center rounded-xl bg-white px-6 text-[15px] text-ink transition hover:bg-white/90">
+            Get a Free Consultation
+          </Link>
+          {secondary && (
+            <Link href={secondary.href} className="inline-flex h-12 items-center rounded-xl border border-white/70 px-6 text-[15px] text-white transition hover:bg-white/10">
+              {secondary.label}
+            </Link>
+          )}
+        </div>
       </div>
     </section>
   );

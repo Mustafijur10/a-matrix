@@ -116,8 +116,8 @@ export default function Navbar() {
 
   return (
     <header ref={headerRef} className="relative z-30 px-3 pt-3 sm:px-6 sm:pt-6" onMouseLeave={close}>
-      <nav className="flex h-[68px] items-center justify-between rounded-[24px] bg-white pl-4 pr-3 shadow-lg sm:pl-[17px] sm:pr-[10px]" aria-label="Main">
-        <Link href="/" aria-label="AutoMatrix home" className="shrink-0">
+      <nav className="flex h-16 items-center justify-between gap-3 rounded-[20px] bg-white pl-4 pr-2 shadow-lg sm:h-[68px] sm:rounded-[24px] sm:pl-[17px] sm:pr-[10px]" aria-label="Main">
+        <Link href="/" aria-label="AutoMatrix home" className="min-w-0 shrink-0">
           <Image src="/images/logo.svg" alt="AutoMatrix" width={165} height={30} priority className="h-auto w-[130px] sm:w-[165px]" />
         </Link>
 
@@ -145,7 +145,7 @@ export default function Navbar() {
         </ul>
 
         <div className="flex items-center gap-2">
-          <Button href="/contact" className="hidden h-12 px-6 sm:inline-flex">Schedule a Call</Button>
+          <Button href="/contact" className="hidden h-12 whitespace-nowrap px-6 lg:inline-flex">Schedule a Call</Button>
           <button type="button" aria-label="Toggle menu" aria-expanded={mobile} onClick={() => setMobile((v) => !v)} className="grid size-11 place-items-center rounded-xl text-neutral-900 lg:hidden">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
               {mobile ? (
@@ -181,7 +181,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {mobile && (
-        <div className="absolute inset-x-3 top-[88px] max-h-[75vh] overflow-y-auto rounded-3xl bg-white p-4 shadow-xl sm:inset-x-6 sm:top-[104px] lg:hidden">
+        <div className="absolute inset-x-3 top-[84px] max-h-[75vh] overflow-y-auto rounded-3xl bg-white p-4 shadow-xl sm:inset-x-6 sm:top-[104px] lg:hidden">
           {[
             { title: "About Us", items: aboutMenu },
             { title: "Technology & Solutions", items: techMenu },
@@ -213,7 +213,7 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
-          <Button href="/contact" className="mt-3 w-full sm:hidden">Schedule a Call</Button>
+          <Button href="/contact" className="mt-3 w-full whitespace-nowrap lg:hidden">Schedule a Call</Button>
         </div>
       )}
     </header>
